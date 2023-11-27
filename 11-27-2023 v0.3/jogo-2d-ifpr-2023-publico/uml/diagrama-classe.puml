@@ -1,0 +1,115 @@
+@startuml
+
+title Diagrama de Classes - com Herança, Classe Abstrata (sem) Interface
+
+package ifpr.paranavai.jogo.modelo <<Frame>> {
+    class Asteroide
+    class Fase
+    class FaseUm
+    class FaseDois
+    class Personagem
+    class Inimigo
+    class Tiro
+    class ElementoGrafico
+    note "Itálico indica que\no método é abstrato" as N1
+}
+
+package java.awt.event <<Frame>> {
+    interface ActionListener
+    interface KeyListener
+}
+
+
+package javax.swing <<Frame>> {
+  class JPanel
+}
+deslocamentoEmY
+class Asteroide{
+    +Asteroide(int xAleatorio, int yAleatorio)
+}
+
+abstract class ElementoGrafico <<abstract>> {
+    -int posicaoEmX
+    -int posicaoEmY
+    -Image imagem
+    -int larguraImagem
+    -int alturaImagem 
+    -boolean ehVisivel
+    __
+    +{abstract} void carregar()
+    +{abstract} void atualizar()
+    +Rectangle getRectangle()
+    .. getters e setters ..
+}
+
+abstract class Fase <<abstract>>{
+    #Image fundo
+    #Timer timer
+    #booelan emJogo
+    +Fase()
+    +{abstract}inicializaElementosGraficosAdicionais()
+    +{abstract} void inicializaInimigos()    
+    +{abstract} void verificarColisoes()
+    +{abstract} void paint(Graphics g)
+    +{abstract} void keyTyped(KeyEvent e)
+    +{abstract} void keyPressed(KeyEvent e)
+    +{abstract} void keyReleased(KeyEvent e)
+    +{abstract} void actionPerformed(ActionEvent e)
+}
+
+class Personagem{
+    -int deslocamentoEmX
+    -int deslocamentoEmY
+    __
+    +Personagem()
+    +void atirar()
+    +void mover(KeyEvent tecla)
+    +void parar(KeyEvent tecla)
+    .. getters e setters ..
+}
+
+class Inimigo{
+    +Inimigo(int xAleatorio, int yAleatorio)
+}
+
+class Tiro {
+    +Tiro(int posicaoPersonagemEmX, int posicaoPersonagemEmY)
+}
+
+class FaseUm {    
+    
+}
+
+class JPanel{
+    +{abstract} void paint(Graphics g)
+}
+interface ActionListener <<interface>> {
+    +{abstract} void actionPerformed(ActionEvent e)
+}
+
+interface KeyListener <<interface>> {
+    +{abstract} void keyTyped(KeyEvent e)
+    +{abstract} void keyPressed(KeyEvent e)
+    +{abstract} void keyReleased(KeyEvent e)
+}
+
+Fase -up-|> JPanel: extends
+Fase -up.|> ActionListener: implements
+Fase -up.|> KeyListener: implements
+FaseUm -left-|> Fase: extends
+FaseDois -left-|> Fase: extends
+
+
+Fase "1" *-left-> "1" Personagem
+Inimigo "*" <-up- "1" Fase
+Asteroide "*" <-up- "1" Fase
+
+Personagem "1" *--> "*" Tiro
+Personagem --|> ElementoGrafico: extends
+
+Tiro --|> ElementoGrafico: extends
+
+Inimigo --|> ElementoGrafico: extends
+
+Asteroide --|> ElementoGrafico: extends
+@enduml

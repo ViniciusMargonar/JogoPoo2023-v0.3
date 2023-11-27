@@ -1,0 +1,33 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+    <hibernate-configuration>
+        <session-factory>
+            <property name="hibernate.connection.driver_class">
+                com.mysql.jdbc.Driver
+            </property>
+            <property name="hibernate.connection.username">root</property>
+            <property name="hibernate.connection.password"></property>
+            <property name="hibernate.connection.url">
+                jdbc:mysql://localhost:3304/bd_jogo
+            </property>
+            <property name="hibernate.dialect">
+                org.hibernate.dialect.MySQL8Dialect
+            </property>
+            <property name="hibernate.show_sql">true</property>
+            <property name="hibernate.format_sql">false</property>
+            <property name="hbm2ddl.auto">update</property>
+<!-- Classes que serão persistidas no tutorial -->
+
+           <!-- <mapping class="ifpr.paranavai.jogo.modelo.Fase" /> 
+            <mapping class="ifpr.paranavai.jogo.modelo.FaseUm" />            
+            <mapping class="ifpr.paranavai.jogo.modelo.Jogador" /> -->
+            <mapping class="ifpr.paranavai.jogo.modelo.Personagem" />
+            <mapping class="ifpr.paranavai.jogo.modelo.ElementoGrafico" />
+            <mapping class="ifpr.paranavai.jogo.modelo.Inimigo" />
+            <mapping class="ifpr.paranavai.jogo.modelo.Asteroide" />
+            <mapping class="ifpr.paranavai.jogo.modelo.Tiro" />
+            <mapping class="ifpr.paranavai.jogo.modelo.TiroSuper" />
+            
+        </session-factory>
+    </hibernate-configuration>
